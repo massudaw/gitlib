@@ -1528,7 +1528,7 @@ openLgRepository :: (MonadIO m, MonadMask m) => Git.RepositoryOptions -> m LgRep
 openLgRepository opts = do
     startupLgBackend
     let path = Git.repoPath opts
-    p <- liftIO $ doesDirectoryExist path
+    p <- liftIO $ doesDirectoryExist (if Git.repoIsBare opts then path else path </> ".git")
     openRepositoryWith path $
         if not (Git.repoAutoCreate opts) || p
         then c'git_repository_open
