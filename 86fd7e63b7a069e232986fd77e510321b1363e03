@@ -1,0 +1,23 @@
+gitlib-libgit2/Git/Libgit2.hs
+  fd49506816f798ea 1339,1345
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.7",
+  "base_commit_sha": "86fd7e63b7a069e232986fd77e510321b1363e03",
+  "prompts": {
+    "fd49506816f798ea": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b3c70a56-7ec9-43f1-a2f3-5b1e4b0b3bb0",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Wesley Massuda <wesley.massuda@gmail.com>",
+      "messages": [],
+      "total_additions": 3,
+      "total_deletions": 22,
+      "accepted_lines": 2,
+      "overriden_lines": 0
+    }
+  }
+}
