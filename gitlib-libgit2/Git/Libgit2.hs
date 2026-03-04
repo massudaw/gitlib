@@ -1333,15 +1333,16 @@ lgBuildPackIndex dir bytes = do
         lift . run $ return (Git.shaToText sha)
 
 oidToSha :: Ptr C'git_oid -> IO Git.SHA
-oidToSha oidPtr =
-    Git.SHA <$> B.packCStringLen
-        (castPtr oidPtr, sizeOf (undefined :: C'git_oid))
+oidToSha oidPtr = allocaBytes 41 $ \out -> do
+    _ <- c'git_oid_tostr out 41 oidPtr
+    hexStr <- B.packCString out
+    return (Git.SHA hexStr)
 
 shaToCOid :: Git.SHA -> IO (ForeignPtr C'git_oid)
 shaToCOid (Git.SHA bs) = BU.unsafeUseAsCString bs $ \bytes -> do
     ptr <- mallocForeignPtr
     withForeignPtr ptr $ \ptr' -> do
-        c'git_oid_fromraw ptr' (castPtr bytes)
+        c'git_oid_fromstr ptr' bytes
         return ptr
 
 shaToOid :: Git.SHA -> IO OidPtr
